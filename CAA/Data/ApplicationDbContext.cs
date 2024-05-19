@@ -10,5 +10,6 @@ namespace CAA.Data
         }
 
         public DbSet<eventsEntity> Events { get; set; }
+        public DbSet<CAA.Models.signUpEntity> signUpEntity { get; set; } = default!;
     }
 }
