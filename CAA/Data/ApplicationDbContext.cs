@@ -9,6 +9,6 @@ namespace CAA.Data
         { 
         }
 
-        public DbSet<LeadEntity> Leads { get; set; }
+        public DbSet<eventsEntity> Events { get; set; }
     }
 }

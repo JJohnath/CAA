@@ -10,22 +10,22 @@ using CAA.Models;
 
 namespace CAA.Controllers
 {
-    public class LeadEntitiesController : Controller
+    public class eventsEntitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public LeadEntitiesController(ApplicationDbContext context)
+        public eventsEntitiesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: LeadEntities
+        // GET: eventsEntities
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Leads.ToListAsync());
+            return View(await _context.Events.ToListAsync());
         }
 
-        // GET: LeadEntities/Details/5
+        // GET: eventsEntities/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace CAA.Controllers
                 return NotFound();
             }
 
-            var leadEntity = await _context.Leads
+            var eventsEntity = await _context.Events
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (leadEntity == null)
+            if (eventsEntity == null)
             {
                 return NotFound();
             }
 
-            return View(leadEntity);
+            return View(eventsEntity);
         }
 
-        // GET: LeadEntities/Create
+        // GET: eventsEntities/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: LeadEntities/Create
+        // POST: eventsEntities/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,LeadDate,LeadSource,Name,Mobile,Email")] LeadEntity leadEntity)
+        public async Task<IActionResult> Create([Bind("Id,EventDate,EventTitle,Desc,Capacity,Email")] eventsEntity eventsEntity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(leadEntity);
+                _context.Add(eventsEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(leadEntity);
+            return View(eventsEntity);
         }
 
-        // GET: LeadEntities/Edit/5
+        // GET: eventsEntities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace CAA.Controllers
                 return NotFound();
             }
 
-            var leadEntity = await _context.Leads.FindAsync(id);
-            if (leadEntity == null)
+            var eventsEntity = await _context.Events.FindAsync(id);
+            if (eventsEntity == null)
             {
                 return NotFound();
             }
-            return View(leadEntity);
+            return View(eventsEntity);
         }
 
-        // POST: LeadEntities/Edit/5
+        // POST: eventsEntities/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,LeadDate,LeadSource,Name,Mobile,Email")] LeadEntity leadEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,EventDate,EventTitle,Desc,Capacity,Email")] eventsEntity eventsEntity)
         {
-            if (id != leadEntity.Id)
+            if (id != eventsEntity.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CAA.Controllers
             {
                 try
                 {
-                    _context.Update(leadEntity);
+                    _context.Update(eventsEntity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LeadEntityExists(leadEntity.Id))
+                    if (!eventsEntityExists(eventsEntity.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace CAA.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(leadEntity);
+            return View(eventsEntity);
         }
 
-        // GET: LeadEntities/Delete/5
+        // GET: eventsEntities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace CAA.Controllers
                 return NotFound();
             }
 
-            var leadEntity = await _context.Leads
+            var eventsEntity = await _context.Events
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (leadEntity == null)
+            if (eventsEntity == null)
             {
                 return NotFound();
             }
 
-            return View(leadEntity);
+            return View(eventsEntity);
         }
 
-        // POST: LeadEntities/Delete/5
+        // POST: eventsEntities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var leadEntity = await _context.Leads.FindAsync(id);
-            if (leadEntity != null)
+            var eventsEntity = await _context.Events.FindAsync(id);
+            if (eventsEntity != null)
             {
-                _context.Leads.Remove(leadEntity);
+                _context.Events.Remove(eventsEntity);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LeadEntityExists(int id)
+        private bool eventsEntityExists(int id)
         {
-            return _context.Leads.Any(e => e.Id == id);
+            return _context.Events.Any(e => e.Id == id);
         }
     }
 }

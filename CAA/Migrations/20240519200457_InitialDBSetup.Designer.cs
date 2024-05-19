@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CAA.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240519193859_InitialDBSetup")]
+    [Migration("20240519200457_InitialDBSetup")]
     partial class InitialDBSetup
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace CAA.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("CAA.Models.LeadEntity", b =>
+            modelBuilder.Entity("CAA.Models.eventsEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,28 +33,28 @@ namespace CAA.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Capacity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Desc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("LeadDate")
+                    b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LeadSource")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Mobile")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("EventTitle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Leads");
+                    b.ToTable("Events");
                 });
 #pragma warning restore 612, 618
         }
